@@ -2,6 +2,7 @@ import os
 import rospy
 import rospkg
 from sensor_msgs.msg import Joy
+from hexapod_msgs.msg import Pose
 
 from qt_gui.plugin import Plugin
 from python_qt_binding import loadUi
@@ -30,7 +31,7 @@ class MyPlugin(Plugin):
                       dest="topic",
                       type=str,
                       help="Set topic to publish [default:/joy]",
-                      default="/joy")
+                      default="/hexapod_control/translate_rotate_command")
         parser.add_argument("-r", "--rate",
                       dest="rate",
                       type=float,
@@ -45,13 +46,13 @@ class MyPlugin(Plugin):
 
         args, unknowns = parser.parse_known_args(context.argv())
         if not args.quiet:
-            print 'arguments: ', args
-            print 'unknowns: ', unknowns
+            print('arguments: ', args)
+            print('unknowns: ', unknowns)
 
         # Create QWidget
         self._widget = QWidget()
         # Get path to UI file which should be in the "resource" folder of this package
-        ui_file = os.path.join(rospkg.RosPack().get_path('rqt_virtual_joy'), 'resource', 'VirtualJoy.ui')
+        ui_file = os.path.join(rospkg.RosPack().get_path('hexapod_control_panel'), 'resource', 'VirtualJoy.ui')
         # Extend the widget with all attributes and children from UI file
         loadUi(ui_file, self._widget)
         # Give QObjects reasonable names
@@ -97,7 +98,7 @@ class MyPlugin(Plugin):
         except:
             pass
         self.pub = None
-        self.pub = rospy.Publisher(topic, Joy,queue_size=10)
+        self.pub = rospy.Publisher(topic, Pose, queue_size=1)
 
     def startIntervalTimer(self,msec):
 
@@ -144,10 +145,9 @@ class MyPlugin(Plugin):
 
     def processTimerShot(self):
         joy = self.getROSJoyValue()
-        msg = Joy()
-        msg.header.stamp = rospy.Time.now()
-        msg.axes.append(float(joy['x']))
-        msg.axes.append(float(joy['y']))
+        msg = Pose()
+        msg.position.x = float(joy['x']) * 0.04
+        msg.position.y = float(joy['y']) * 0.04
 
         button_num = 1
         while True:

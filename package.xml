@@ -1,10 +1,10 @@
 <?xml version="1.0"?>
 <package format="2">
-  <name>rqt_virtual_joy</name>
-  <version>0.1.2</version>
-  <description>The rqt_virtual_joy package</description>
+  <name>hexapod_control_panel</name>
+  <version>0.0.0</version>
+  <description>The hexapod control panel package.</description>
 
-  <maintainer email="hikaru.sugiura@whill.inc">Hikaru Sugiura</maintainer>
+  <maintainer email="peterleng1234@gmail.com">Peter Leng</maintainer>
 
   <license>MIT</license>
 
@@ -15,7 +15,7 @@
   <!-- <url type="website">http://wiki.ros.org/rqt_virtual_joy</url> -->
 
 
-  <author email="hikaru.sugiura@whill.inc">Hikaru Sugiura</author>
+  <author email="peterleng1234@gmail.com">Peter Leng</author>
 
   <depend>std_msgs</depend>
   <depend>sensor_msgs</depend>
