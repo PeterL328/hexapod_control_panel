@@ -207,8 +207,8 @@ class JoystickPointView(QWidget):
             origCenter = self.centerPos(self._origPos)
             relative = origCenter - center
 
-            x = (float(relative.x()) / self._range) * 0.04
-            y = (float(relative.y()) / self._range) * 0.04
+            x = (float(relative.x()) / self._range)
+            y = (float(relative.y()) / self._range)
 
         except:
             x = float(0.0)

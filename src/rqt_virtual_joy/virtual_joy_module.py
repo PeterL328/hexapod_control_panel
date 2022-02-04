@@ -2,7 +2,6 @@ import os
 import rospy
 import rospkg
 from sensor_msgs.msg import Joy
-from hexapod_msgs.msg import Pose
 
 from qt_gui.plugin import Plugin
 from python_qt_binding import loadUi
@@ -31,7 +30,7 @@ class MyPlugin(Plugin):
                       dest="topic",
                       type=str,
                       help="Set topic to publish [default:/joy]",
-                      default="/hexapod_control/translate_rotate_command")
+                      default="/joy")
         parser.add_argument("-r", "--rate",
                       dest="rate",
                       type=float,
@@ -98,7 +97,7 @@ class MyPlugin(Plugin):
         except:
             pass
         self.pub = None
-        self.pub = rospy.Publisher(topic, Pose, queue_size=1)
+        self.pub = rospy.Publisher(topic, Joy, queue_size=1)
 
     def startIntervalTimer(self,msec):
 
@@ -145,9 +144,11 @@ class MyPlugin(Plugin):
 
     def processTimerShot(self):
         joy = self.getROSJoyValue()
-        msg = Pose()
-        msg.position.x = float(joy['x']) * 0.04
-        msg.position.y = float(joy['y']) * 0.04
+        msg = Joy()
+        msg.header.stamp = rospy.Time.now()
+        msg.axes.append(float(joy['x']))
+        msg.axes.append(float(joy['y']))
+
 
         button_num = 1
         while True:
