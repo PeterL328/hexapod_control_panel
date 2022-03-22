@@ -33,8 +33,9 @@ private:
     bool is_turned_on{false};
     bool is_translate_mode_{false};
     float max_walking_speed_;
-    float max_shift_distance_;
     float max_rotate_degree_;
+    float max_shift_distance_;
+    float max_stationary_rotate_degree_;
 };
 
 
