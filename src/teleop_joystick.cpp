@@ -52,7 +52,7 @@ void TeleopJoystick::joy_to_control_messages_callback(const sensor_msgs::Joy::Co
         geometry_msgs::Twist cmd_vel_message;
         cmd_vel_message.linear.x = -joy0_x * max_walking_speed_;
         cmd_vel_message.linear.y = joy0_y * max_walking_speed_;
-        cmd_vel_message.angular.x = -joy1_x * max_rotate_degree_;
+        cmd_vel_message.angular.z = -joy1_x * max_rotate_degree_;
         cmd_vel_publisher_.publish(cmd_vel_message);
     } else {
         hexapod_msgs::Pose pose_message;
