@@ -12,7 +12,7 @@ TeleopJoystick::TeleopJoystick(ros::NodeHandle *nh) {
     // Load params
     nh->param("max_walking_speed", max_walking_speed_, 0.2f);
     nh->param("max_shift_distance", max_shift_distance_, 0.04f);
-    nh->param("max_rotate_degree", max_rotate_degree_, 0.2f);
+    nh->param("max_rotate_degree", max_rotate_degree_, 0.6f);
     nh->param("max_stationary_rotate_degree", max_stationary_rotate_degree_, 0.25f);
 
     joy_subscriber_ = nh->subscribe(joy_topic_name_, 1, &TeleopJoystick::joy_to_control_messages_callback, this);
